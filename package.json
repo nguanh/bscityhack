@@ -1,0 +1,28 @@
+{
+  "name": "mern-pure",
+  "version": "1.0.0",
+  "main": "build/server.js",
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "prestart": "yarn run build",
+    "start": "concurrently \"yarn run server\" \"yarn run client\" ",
+    "server": "nodemon src/server.ts",
+    "client": "yarn --cwd client start"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.2",
+    "@types/mongoose": "^5.5.28",
+    "@types/node": "^12.12.5",
+    "concurrently": "^5.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.7",
+    "ts-node": "^8.4.1",
+    "tslint": "^6.0.0-beta0",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
