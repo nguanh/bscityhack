@@ -1,8 +1,8 @@
-const express = require('express')
+import {ItemModel} from '../../models/Item';
+import express from "express";
+
 const router = express.Router();
 
-// Item Model
-const ItemModel = require('../../models/Item');
 
 // @route GET api/items
 // @desc get all items
@@ -28,12 +28,17 @@ router.post('/', ((req, res) => {
 // @route POST api/items
 // @desc Delete Item
 // @access public
-router.delete('/:id', ((req, res) => {
-    ItemModel.findById(req.params.id).then(item =>{
-        item.remove()
-            .then(() => res.json({success: true}))
-            .catch(err => res.status(404).json({success: false}));
-    }).catch(err => res.status(404).json({success: false}));
+router.delete('/:id', (async(req, res) => {
+    const _id = req.params.id;
+    try {
+        const foundItem = await ItemModel.findById(_id);
+        if (foundItem){
+            await foundItem.remove();
+        }
+        res.json({success: true})
+    } catch(err) {
+        res.status(404).json({success: false})
+    }
 }));
 
 
