@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import {mongoURI} from './config/keys';
+import itemRouter from "./routes/api/items";
 
 
 const app = express();
@@ -18,10 +19,8 @@ mongoose.connect(mongoURI, {
 }).then(() =>{
     console.log("Connected to MongoDB");
 });
-// use routes
-const items = require('./routes/api/items');
 
-app.use('/api/items', items);
+app.use('/api/items', itemRouter);
 
 
 
