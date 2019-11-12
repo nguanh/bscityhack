@@ -6,7 +6,7 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "prestart": "yarn run build",
     "start": "concurrently \"yarn run server\" \"yarn run client\" ",
-    "server": "nodemon src/server.ts",
+    "server": "nodemon -q src/server.ts",
     "client": "yarn --cwd client start",
     "watch": "babel --watch src ---out-dir build --extensions '.ts,.tsx'",
     "type-check": "tsc --noEmit",
