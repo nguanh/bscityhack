@@ -1,5 +1,5 @@
 import {ItemModel} from '../../models/Item';
-import express from "express";
+import express from 'express';
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ router.post('/', ((req, res) => {
     newItem.save().then((item) => res.json(item));
 }));
 
-// @route POST api/items
+// @route DELETE api/items
 // @desc Delete Item
 // @access public
 router.delete('/:id', (async(req, res) => {
@@ -36,6 +36,26 @@ router.delete('/:id', (async(req, res) => {
             await foundItem.remove();
         }
         res.json({success: true})
+    } catch(err) {
+        res.status(404).json({success: false})
+    }
+}));
+
+// @route PATCH api/items
+// @desc Edit Text of Item by Id
+// @access public
+router.patch('/:id/:value', (async(req, res) => {
+    const _id = req.params.id;
+    const value = req.params.value;
+    try {
+        const foundItem = await ItemModel.findById(_id);
+        if (foundItem){
+            await ItemModel.updateOne({_id}, {name: value});
+            res.json({success: true})
+        } else {
+            res.status(404).json({success: false})
+        }
+
     } catch(err) {
         res.status(404).json({success: false})
     }

@@ -8,7 +8,6 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "target": "esnext",
-    "noEmit": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

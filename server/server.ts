@@ -1,8 +1,8 @@
 import express from 'express'
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import {mongoURI} from './config/keys';
-import itemRouter from "./routes/api/items";
+import itemRouter from './routes/api/items';
 
 
 const app = express();
@@ -17,7 +17,7 @@ mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() =>{
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
 });
 
 app.use('/api/items', itemRouter);
