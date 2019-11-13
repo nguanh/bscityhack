@@ -1,8 +1,12 @@
-import {Schema, model} from 'mongoose';
+import {Schema, model, Document} from 'mongoose';
 
 
+interface IItem  extends Document {
+    name: string;
+    date: Date;
+}
 
-const ItemSchema = new Schema({
+const ItemSchema: Schema = new Schema({
     name: {
         type: String,
         required: true,
@@ -14,4 +18,4 @@ const ItemSchema = new Schema({
 });
 
 
-export const ItemModel = model('item', ItemSchema);
+export const ItemModel= model<IItem>('item', ItemSchema);
