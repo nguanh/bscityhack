@@ -2,17 +2,30 @@ import {
     GET_ITEMS,
     ADD_ITEM,
     DELETE_ITEM,
-    ITEMS_LOADING
+    ITEMS_LOADING, ACTION_TYPES
 } from '../actions/types';
 
+export interface IItem {
+    _id: string,
+    name: string,
+}
 
+export interface StoreState {
+    readonly loading: boolean;
+    readonly items: ReadonlyArray<IItem>
+}
 
-const initialState = {
+const initialState: StoreState = {
     items: [],
     loading: false
 };
 
-export default function(state = initialState, action) {
+interface Action {
+    type: ACTION_TYPES,
+    payload: string,
+}
+
+export default function(state: StoreState = initialState, action: Action) {
     switch (action.type) {
         case GET_ITEMS:
             return {
@@ -23,7 +36,6 @@ export default function(state = initialState, action) {
         case DELETE_ITEM:
             return {
                 ...state,
-                //@ts-ignore
                 items: state.items.filter(item => item._id !== action.payload)
             };
         case ADD_ITEM:
