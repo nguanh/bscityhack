@@ -28,7 +28,3 @@ export enum ERROR_ACTION_TYPES  {
     CLEAR_ERRORS = "CLEAR_ERRORS",
 }
 
-export interface IAction {
-    type: ACTION_TYPES,
-    payload: string,
-}

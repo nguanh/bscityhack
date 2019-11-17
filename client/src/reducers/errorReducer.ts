@@ -1,8 +1,8 @@
 import {GET_ERRORS, CLEAR_ERRORS, ERROR_ACTION_TYPES} from '../actions/types';
 
-interface IErrorState {
+export interface IErrorState {
     msg: any,
-    status: any,
+    status: string,
     id: string,
 }
 
@@ -13,7 +13,7 @@ const initialState: IErrorState = {
 };
 
 
-interface IErrorAction {
+export interface IErrorAction {
     type: ERROR_ACTION_TYPES,
     payload: IErrorState
 }

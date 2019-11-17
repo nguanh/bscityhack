@@ -1,10 +1,10 @@
-import { GET_ERRORS, CLEAR_ERRORS } from './types';
+import { ERROR_ACTION_TYPES } from './types';
+import {IErrorAction} from '../reducers/errorReducer';
 
 // RETURN ERRORS
-//@ts-ignore
-export const returnErrors = (msg: any, status: any, id = null) => {
+export const returnErrors = (msg: string, status: string, id = null): IErrorAction => {
     return {
-        type: GET_ERRORS,
+        type: ERROR_ACTION_TYPES.GET_ERRORS,
         payload: { msg, status, id }
     };
 };
@@ -12,6 +12,6 @@ export const returnErrors = (msg: any, status: any, id = null) => {
 // CLEAR ERRORS
 export const clearErrors = () => {
     return {
-        type: CLEAR_ERRORS
+        type: ERROR_ACTION_TYPES.CLEAR_ERRORS
     };
 };

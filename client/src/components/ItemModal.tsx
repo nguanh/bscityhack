@@ -91,7 +91,6 @@ const mapStateToProps = state => ({
     item: state.item,
 });
 
-// @ts-ignore
 export default connect(
     mapStateToProps,
     { addItem }

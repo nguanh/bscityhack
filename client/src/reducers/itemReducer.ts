@@ -2,7 +2,8 @@ import {
     GET_ITEMS,
     ADD_ITEM,
     DELETE_ITEM,
-    ITEMS_LOADING, IAction
+    ITEMS_LOADING,
+    ACTION_TYPES
 } from '../actions/types';
 
 export interface IItem {
@@ -11,17 +12,22 @@ export interface IItem {
 }
 
 export interface ItemState {
-    readonly loading: boolean;
-    readonly items: ReadonlyArray<IItem>
+    loading: boolean;
+    items: IItem[];
 }
 
 const initialState: ItemState = {
     items: [],
     loading: false
 };
+export interface IAction {
+    type: ACTION_TYPES,
+    payload: any,
+}
 
+// TODO payload aufräumen
 
-export default function(state: ItemState = initialState, action: IAction) {
+export default function(state: ItemState = initialState, action: IAction): ItemState {
     switch (action.type) {
         case GET_ITEMS:
             return {

@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux';
-import itemReducer from './itemReducer';
-import errorReducer from './errorReducer';
+import itemReducer, {ItemState} from './itemReducer';
+import errorReducer, {IErrorState} from './errorReducer';
 
-// TODO remove any
-export default combineReducers<any>({
+interface IState {
+    item: ItemState,
+    error: IErrorState,
+}
+
+export default combineReducers<IState>({
     item: itemReducer,
     error: errorReducer,
 });
