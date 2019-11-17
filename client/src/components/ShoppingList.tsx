@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { Container, ListGroup, ListGroupItem, Button, Input, InputGroup } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {connect} from 'react-redux';
-import {deleteItem, getItems} from '../actions/itemActions';
+import {deleteItem, getItems, editItem} from '../actions/itemActions';
 interface Props {
     getItems?: Function;
     deleteItem?: (id: string) => void;
+    editItem ?: (id: string, value: string)=> void;
     item?: any,
 
 }
@@ -20,6 +21,10 @@ interface Props {
         this.props.deleteItem(id);
     };
 
+    onChangeText(id, event) {
+        this.props.editItem(id,event.target.value);
+    }
+
     render() {
         const { items } = this.props.item;
         return (
@@ -29,6 +34,7 @@ interface Props {
                         {items.map(({ _id, name }) => (
                             <CSSTransition key={_id} timeout={500} classNames='fade'>
                                 <ListGroupItem>
+                                    <InputGroup>
                                     <Button
                                         className='remove-btn'
                                         color='danger'
@@ -37,7 +43,10 @@ interface Props {
                                     >
                                         &times;
                                     </Button>
-                                    {name}
+
+                                    <Input value={name} onChange={this.onChangeText.bind(this, _id)} />
+                                    </InputGroup>
+
                                 </ListGroupItem>
                             </CSSTransition>
                         ))}
@@ -54,5 +63,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getItems, deleteItem }
+    { getItems, deleteItem, editItem }
 )(ShoppingList);

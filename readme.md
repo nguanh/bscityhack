@@ -1,10 +1,12 @@
 # MERN Boilerplate
 ## TODO
-- script zum schnellen aufsetzen der mongoDB
-- client tslint verwenden mit gleichen configs wie der server
+- edit client
 - tslint einheitliche regeln
 - wechseln auf eslint ? 
-- redux mit typescript
+- script zum schnellen aufsetzen der mongoDB
+- app ordner mit expo-react native
+
+
 
 #Sources 
 - https://github.com/microsoft/TypeScript-Babel-Starter

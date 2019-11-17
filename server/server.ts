@@ -30,4 +30,3 @@ app.listen(port, () =>{
     console.log('Server start on port', port);
 });
 
-// https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files

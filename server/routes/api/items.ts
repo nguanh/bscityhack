@@ -50,8 +50,12 @@ router.patch('/:id/:value', (async(req, res) => {
     try {
         const foundItem = await ItemModel.findById(_id);
         if (foundItem){
-            await ItemModel.updateOne({_id}, {name: value});
-            res.json({success: true})
+            const result = await ItemModel.updateOne({_id}, {name: value});
+            if (result && result.ok) {
+                const edited = await ItemModel.findById(_id);
+                res.json(edited);
+            }
+            res.status(404).json({success: false})
         } else {
             res.status(404).json({success: false})
         }

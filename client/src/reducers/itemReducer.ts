@@ -3,8 +3,9 @@ import {
     ADD_ITEM,
     DELETE_ITEM,
     ITEMS_LOADING,
-    ACTION_TYPES
+    ACTION_TYPES, EDIT_ITEM
 } from '../actions/types';
+import {editItem} from '../actions/itemActions';
 
 export interface IItem {
     _id: string,
@@ -44,6 +45,12 @@ export default function(state: ItemState = initialState, action: IAction): ItemS
             return {
                 ...state,
                 items: [action.payload, ...state.items]
+            };
+        case EDIT_ITEM:
+            const items = state.items.filter(item => item._id !== action.payload._id);
+            return {
+                ...state,
+                items: [action.payload, items]
             };
         case ITEMS_LOADING:
             return {

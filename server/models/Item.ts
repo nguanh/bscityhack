@@ -6,7 +6,7 @@ interface IItem  extends Document {
     date: Date;
 }
 
-const ItemSchema: Schema = new Schema({
+const itemSchema: Schema = new Schema({
     name: {
         type: String,
         required: true,
@@ -18,4 +18,4 @@ const ItemSchema: Schema = new Schema({
 });
 
 
-export const ItemModel= model<IItem>('item', ItemSchema);
+export const ItemModel= model<IItem>('item', itemSchema);
