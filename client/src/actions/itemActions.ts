@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
 import { returnErrors } from './errorActions';
-import {ActionCreator} from "redux";
 
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
@@ -35,7 +34,7 @@ export const addItem = item => (dispatch) => {
 export const deleteItem = id => (dispatch) => {
     axios
         .delete(`/api/items/${id}`)
-        .then(res =>
+        .then(() =>
             dispatch({
                 type: DELETE_ITEM,
                 payload: id

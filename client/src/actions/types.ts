@@ -22,3 +22,13 @@ export enum ACTION_TYPES  {
     EDIT_ITEM = "EDIT_ITEM",
     ITEMS_LOADING = "ITEMS_LOADING",
 }
+
+export enum ERROR_ACTION_TYPES  {
+    GET_ERRORS = "GET_ERRORS",
+    CLEAR_ERRORS = "CLEAR_ERRORS",
+}
+
+export interface IAction {
+    type: ACTION_TYPES,
+    payload: string,
+}

@@ -1,12 +1,25 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types';
+import {GET_ERRORS, CLEAR_ERRORS, ERROR_ACTION_TYPES} from '../actions/types';
 
-const initialState = {
+interface IErrorState {
+    msg: any,
+    status: any,
+    id: string,
+}
+
+const initialState: IErrorState = {
     msg: {},
     status: null,
     id: null
 };
 
-export default function(state = initialState, action) {
+
+interface IErrorAction {
+    type: ERROR_ACTION_TYPES,
+    payload: IErrorState
+}
+
+
+export default function(state: IErrorState = initialState, action: IErrorAction) {
     switch(action.type) {
         case GET_ERRORS:
             return {

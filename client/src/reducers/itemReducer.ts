@@ -2,7 +2,7 @@ import {
     GET_ITEMS,
     ADD_ITEM,
     DELETE_ITEM,
-    ITEMS_LOADING, ACTION_TYPES
+    ITEMS_LOADING, IAction
 } from '../actions/types';
 
 export interface IItem {
@@ -10,22 +10,18 @@ export interface IItem {
     name: string,
 }
 
-export interface StoreState {
+export interface ItemState {
     readonly loading: boolean;
     readonly items: ReadonlyArray<IItem>
 }
 
-const initialState: StoreState = {
+const initialState: ItemState = {
     items: [],
     loading: false
 };
 
-interface Action {
-    type: ACTION_TYPES,
-    payload: string,
-}
 
-export default function(state: StoreState = initialState, action: Action) {
+export default function(state: ItemState = initialState, action: IAction) {
     switch (action.type) {
         case GET_ITEMS:
             return {
