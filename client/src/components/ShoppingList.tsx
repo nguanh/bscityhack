@@ -10,6 +10,7 @@ interface Props {
     item?: any,
 
 }
+
  class ShoppingList extends Component<Props> {
     componentDidMount() {
         // @ts-ignore

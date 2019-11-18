@@ -54,8 +54,9 @@ router.patch('/:id/:value', (async(req, res) => {
             if (result && result.ok) {
                 const edited = await ItemModel.findById(_id);
                 res.json(edited);
+            } else {
+                res.status(404).json({success: false})
             }
-            res.status(404).json({success: false})
         } else {
             res.status(404).json({success: false})
         }

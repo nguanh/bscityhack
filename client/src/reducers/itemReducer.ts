@@ -50,7 +50,7 @@ export default function(state: ItemState = initialState, action: IAction): ItemS
             const items = state.items.filter(item => item._id !== action.payload._id);
             return {
                 ...state,
-                items: [action.payload, items]
+                items: [action.payload, ...items]
             };
         case ITEMS_LOADING:
             return {
