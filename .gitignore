@@ -1,2 +1,17 @@
 node_modules
 build
+app/node_modules/**/*
+app/.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+app/web-build/
+app/web-report/
+
+# macOS
+.DS_Store
+

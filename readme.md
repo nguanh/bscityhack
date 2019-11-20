@@ -1,6 +1,5 @@
 # MERN Boilerplate
 ## TODO
-- edit client
 - tslint einheitliche regeln
 - wechseln auf eslint ? 
 - script zum schnellen aufsetzen der mongoDB
