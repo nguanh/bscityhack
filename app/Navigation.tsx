@@ -8,6 +8,15 @@ export const AppNavigator = createStackNavigator({
     Details: DetailsScreen,
 }, {
     initialRouteName: 'Home',
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    },
 });
 
 // TODO part 2 https://reactnavigation.org/docs/en/navigating.html

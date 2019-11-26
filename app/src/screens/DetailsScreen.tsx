@@ -7,6 +7,10 @@ interface Props {
 }
 
 export default class DetailsScreen extends React.Component<Props> {
+    static navigationOptions = {
+        title: 'Details',
+    };
+
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

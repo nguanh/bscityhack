@@ -7,7 +7,19 @@ interface Props {
 }
 
 export default class HomeScreen extends React.Component<Props> {
-    render() {
+    static navigationOptions = {
+        title: 'Home',
+        headerRight: () => (
+            <Button
+                onPress={() => alert('This is a button!')}
+                title="Info"
+                color="#fff"
+            />
+        ),
+
+    };
+
+    public render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Home Screen</Text>
