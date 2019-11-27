@@ -1,30 +1,35 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
 import {NavigationScreenProp, NavigationState, NavigationParams} from 'react-navigation';
+import { Container, Header, Footer, Left, Button, Icon, Body, Title} from "native-base";
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
 export default class HomeScreen extends React.Component<Props> {
-    static navigationOptions = {
-        title: 'Home',
-        headerRight: () => (
-            <Button
-                onPress={() => alert('This is a button!')}
-                title="Info"
-                color="#fff"
-            />
-        ),
-
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: 'Home',
+            headerRight: () => (
+                <Button transparent={true} onPress={
+                    () => navigation.navigate("Details")
+                }>
+                    <Icon name={"menu"}/>
+                </Button>
+            )
+        }
     };
 
     public render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Home Screen</Text>
-                <Button title={"Go To Details"} onPress={() => this.props.navigation.navigate("Details")} />
-            </View>
+          <Container>
+              <Body>
+                  <Title>Header</Title>
+              </Body>
+              <Footer>
+
+              </Footer>
+          </Container>
         );
     }
 }
