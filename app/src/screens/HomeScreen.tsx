@@ -1,17 +1,33 @@
 import React from 'react';
 import {NavigationScreenProp, NavigationState, NavigationParams} from 'react-navigation';
-import { Card, CardItem, Container, Footer, Button, Icon, Body, Title, Text} from "native-base";
+import {
+    Card,
+    CardItem,
+    Container,
+    Footer,
+    Button,
+    Icon,
+    Item,
+    Input,
+    Right,
+    Body, Title, Text} from "native-base";
 import {deleteItem, editItem, getItems} from '../store/actions/itemActions';
 import {connect} from 'react-redux';
 
 interface Props {
     getItems?: Function;
+    editItem ?: (_id:string, newValue: string) => void;
+    deleteItem ?: (_id: string) => void;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
     item: any[];
     //TODO specify type
 }
 
 class HomeScreen extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+
+    }
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Home',
@@ -29,19 +45,29 @@ class HomeScreen extends React.Component<Props> {
         this.props.getItems();
     }
 
-    private renderItems() {
+    private onChangeText(_id: string, newValue: string) {
+        this.props.editItem(_id, newValue);
+    }
 
+    private renderItems() {
         return this.props.item.items.map((singleItem) => {
            return  (
-               <Card key={singleItem.name}>
+               <Card key={singleItem._id}>
                    <CardItem header={true} bordered={true}>
                        <Text>Neue Aufgabe</Text>
+                       <Right>
+                           <Icon name={"remove"} />
+                       </Right>
                    </CardItem>
                    <CardItem bordered={true}>
                        <Body>
-                           <Text>
-                               {singleItem.name}
-                           </Text>
+                           <Item>
+                               <Input
+                                   defaultValue={singleItem.name}
+                                   onChangeText={this.onChangeText.bind(this, singleItem._id)}
+                               />
+
+                           </Item>
                        </Body>
                    </CardItem>
 
