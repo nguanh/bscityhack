@@ -13,6 +13,7 @@ import {
     Body, Title, Text} from "native-base";
 import {deleteItem, editItem, getItems} from '../store/actions/itemActions';
 import {connect} from 'react-redux';
+import {ToastAndroid} from 'react-native';
 
 interface Props {
     getItems?: Function;
@@ -49,15 +50,23 @@ class HomeScreen extends React.Component<Props> {
         this.props.editItem(_id, newValue);
     }
 
+    private deleteItem(_id: string) {
+        this.props.deleteItem(_id);
+        ToastAndroid.show("Item removed", ToastAndroid.SHORT);
+    }
+
     private renderItems() {
         return this.props.item.items.map((singleItem) => {
            return  (
                <Card key={singleItem._id}>
                    <CardItem header={true} bordered={true}>
-                       <Text>Neue Aufgabe</Text>
-                       <Right>
-                           <Icon name={"remove"} />
-                       </Right>
+                       <Icon
+                           name={"remove"}
+                           type={"FontAwesome"}
+                           onPress={this.deleteItem.bind(this, singleItem._id)}
+                       />
+                       <Text> Neue Aufgabe</Text>
+
                    </CardItem>
                    <CardItem bordered={true}>
                        <Body>
@@ -65,6 +74,7 @@ class HomeScreen extends React.Component<Props> {
                                <Input
                                    defaultValue={singleItem.name}
                                    onChangeText={this.onChangeText.bind(this, singleItem._id)}
+                                   maxLength={20}
                                />
 
                            </Item>
