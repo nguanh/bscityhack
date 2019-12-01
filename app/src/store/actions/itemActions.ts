@@ -1,20 +1,12 @@
 import axios from 'axios';
 import {GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, EDIT_ITEM} from './types';
 import { returnErrors } from './errorActions';
+import {getServerUrl} from '../../utils/urlResolver';
 
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
-    console.log("get items02");
-    const url = "http://192.168.2.107:5000/api/items";
-    fetch(url, {
-    })
-        .then((result) => console.log("result", result))
-        .catch((error) => console.log("error", error));
-
-    console.log("loading2");
-
     axios
-        .get(url)
+        .get(getServerUrl("/api/items"))
         .then(res =>
             console.log({
                 type: GET_ITEMS,
@@ -28,7 +20,7 @@ export const getItems = () => dispatch => {
 
 export const addItem = item => (dispatch) => {
     axios
-        .post('/api/items', item)
+        .post('getServerUrl("/api/items")', item)
         .then(res =>
             dispatch({
                 type: ADD_ITEM,
@@ -42,7 +34,7 @@ export const addItem = item => (dispatch) => {
 
 export const deleteItem = id => (dispatch) => {
     axios
-        .delete(`/api/items/${id}`)
+        .delete(getServerUrl(`/api/items/${id}`))
         .then(() =>
             dispatch({
                 type: DELETE_ITEM,
@@ -56,7 +48,7 @@ export const deleteItem = id => (dispatch) => {
 
 export const editItem = (id, value) => (dispatch) => {
     axios
-        .patch(`/api/items/${id}/${value}`)
+        .patch(getServerUrl(`/api/items/${id}/${value}`))
         .then(res =>
             dispatch({
                 type: EDIT_ITEM,
