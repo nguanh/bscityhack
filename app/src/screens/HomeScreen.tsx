@@ -1,12 +1,16 @@
 import React from 'react';
 import {NavigationScreenProp, NavigationState, NavigationParams} from 'react-navigation';
 import { Container, Header, Footer, Left, Button, Icon, Body, Title} from "native-base";
+import {deleteItem, editItem, getItems} from '../store/actions/itemActions';
+import {connect} from 'react-redux';
 
 interface Props {
+    getItems?: Function;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+    item: any
 }
 
-export default class HomeScreen extends React.Component<Props> {
+class HomeScreen extends React.Component<Props> {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Home',
@@ -20,7 +24,12 @@ export default class HomeScreen extends React.Component<Props> {
         }
     };
 
+    public componentDidMount(): void {
+        this.props.getItems();
+    }
+
     public render() {
+        console.log(this.props.item);
         return (
           <Container>
               <Body>
@@ -33,3 +42,12 @@ export default class HomeScreen extends React.Component<Props> {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    item: state.item,
+});
+
+export default connect(
+    mapStateToProps,
+    { getItems, deleteItem, editItem }
+)(HomeScreen);

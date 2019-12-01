@@ -4,15 +4,24 @@ import { returnErrors } from './errorActions';
 
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
+    console.log("get items02");
+    const url = "http://192.168.2.107:5000/api/items";
+    fetch(url, {
+    })
+        .then((result) => console.log("result", result))
+        .catch((error) => console.log("error", error));
+
+    console.log("loading2");
+
     axios
-        .get('/api/items')
+        .get(url)
         .then(res =>
-            dispatch({
+            console.log({
                 type: GET_ITEMS,
                 payload: res.data
             })
         )
-        .catch(err =>
+        .catch( err =>
             dispatch(returnErrors(err.response.data, err.response.status))
         );
 };

@@ -8,6 +8,7 @@ const router = express.Router();
 // @desc get all items
 // @access public
 router.get('/', ((req, res) => {
+    console.log('server get item');
     ItemModel
         .find()
         .sort({date: -1})
