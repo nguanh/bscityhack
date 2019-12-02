@@ -1,33 +1,75 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {ToastAndroid} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
+import {
+    Container,
+    Button,
+    Input,
+    Text,
+    Item,
+} from "native-base";
+import {addItem} from '../store/actions/itemActions';
+import {connect} from 'react-redux';
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+    addItem: (name: string) => void;
 }
 
-export default class DetailsScreen extends React.Component<Props> {
+interface State {
+    text: string;
+}
+
+class DetailsScreen extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state ={
+            text: "",
+        };
+    }
     static navigationOptions = {
         title: 'Details',
     };
 
+    private setText(text: string) {
+        this.setState({
+            text,
+        });
+    }
+
+    private addItem() {
+        const item = {
+            name: this.state.text,
+        };
+        this.props.addItem(item);
+        this.setState({
+            text: "",
+        });
+        ToastAndroid.show("Item added", ToastAndroid.SHORT);
+    }
+
+
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Details Screen</Text>
+            <Container>
                 <Button
-                    title="Go to Details... again"
-                    onPress={() => this.props.navigation.push('Details')}
-                />
-                <Button
-                    title="Go to Home"
                     onPress={() => this.props.navigation.navigate('Home')}
-                />
+                >
+                    <Text>Go To Home </Text>
+                </Button>
+                <Text>New Task:</Text>
+                <Item>
+                    <Input value={this.state.text} onChangeText={this.setText.bind(this)} />
+                </Item>
                 <Button
-                    title="Go back"
-                    onPress={() => this.props.navigation.goBack()}
-                />
-            </View>
+                    onPress={this.addItem.bind(this)}
+                >
+                    <Text>ADD</Text>
+                </Button>
+
+            </Container>
         );
     }
 }
+
+export default connect(null, {addItem})(DetailsScreen)

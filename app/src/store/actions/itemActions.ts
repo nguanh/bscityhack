@@ -20,7 +20,7 @@ export const getItems = () => dispatch => {
 
 export const addItem = item => (dispatch) => {
     axios
-        .post('getServerUrl("/api/items")', item)
+        .post(getServerUrl(`/api/items`), item)
         .then(res =>
             dispatch({
                 type: ADD_ITEM,
