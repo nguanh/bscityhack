@@ -1,7 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "node_modules/.bin/expo start",
+    "start": "node_modules/.bin/expo-cli.cmd start",
     "android": "expo start --android",
     "ios": "node_modules/.bin/expo start --ios",
     "web": "expo start --web",
