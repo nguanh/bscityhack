@@ -11,7 +11,7 @@ npm-debug.*
 *.orig.*
 app/web-build/
 app/web-report/
-
+*.lock
 # macOS
 .DS_Store
 
