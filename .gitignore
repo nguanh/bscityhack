@@ -14,4 +14,5 @@ app/web-report/
 *.lock
 # macOS
 .DS_Store
+yarn-error.log
 
