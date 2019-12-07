@@ -11,10 +11,10 @@ import {
     Input,
     Right,
     Body, Title, Text} from "native-base";
-
+import QRCode from 'react-native-qrcode';
 
 interface Props {
-    navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+
 }
 
 const mockData = {
@@ -25,30 +25,20 @@ const mockData = {
     }
 }
 
-class HomeScreen extends React.Component<Props> {
+export default class QRScreen extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
 
     }
     static navigationOptions = ({navigation}) => {
         return {
-            title: 'Home',
-            headerRight: () => (
-                <Button transparent={true} onPress={
-                    () => navigation.navigate("Details")
-                }>
-                    <Icon name={"menu"}/>
-                </Button>
-            )
+            title: 'Bitte Scannen',
         }
     };
 
-    private onClick() {
-        this.props.navigation.navigate("QR");
-    }
-
     public componentDidMount(): void {
     }
+
 
 
     public render() {
@@ -56,17 +46,15 @@ class HomeScreen extends React.Component<Props> {
         return (
           <Container>
               <Body>
-                  <Title>Header</Title>
-                  <Button onPress={this.onClick.bind(this)}>
-                      <Text> QR Code generieren</Text>
-                  </Button>
+                  <Text>Wird geladen...</Text>
+                  <QRCode
+                      value={"https://www.google.de"}
+                      size={200}
+                      bgColor='purple'
+                      fgColor='white'/>
               </Body>
-              <Footer>
 
-              </Footer>
           </Container>
         );
     }
 }
-
-export default HomeScreen;
