@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import {Container, Input, Content, DatePicker, Picker, ListItem, Text} from 'native-base';
+import {Button, Container, Input, Content, DatePicker, Picker, ListItem, Text} from 'native-base';
 import {connect} from 'react-redux';
 import {changeLanguage, addFormField} from '../store/actions/procedureActions';
 import {LANGUAGE} from '../store/reducers/procedureReducer';
@@ -19,14 +19,24 @@ interface Props {
 }
 
 interface State {
-    wohnung: string;
+    woh_neu_addr: string;
+    woh_neu_ort: string;
+    woh_neu_plz: string;
+    woh_wei_addr: string;
+    woh_wei_ort: string;
+    woh_wei_plz: string;
 }
 
 class FormScreen extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state= {
-            wohnung: "0",
+            woh_neu_addr: "",
+            woh_neu_ort: "",
+            woh_neu_plz: "",
+            woh_wei_addr: "",
+            woh_wei_ort: "",
+            woh_wei_plz: "",
         }
     }
 
@@ -71,8 +81,35 @@ class FormScreen extends React.Component<Props, State> {
         });
     }
 
-    private setTextField() {
+    private setTextField(name, value) {
+        const newObj = {
+            [name]: value,
+        }
+        this.setState(newObj);
 
+        this.props.addFormField({
+            key: "adresseNeu",
+            value: this.state.woh_neu_addr
+        });
+
+        this.props.addFormField({
+            key: "plzNeu",
+            value: `${this.state.woh_neu_ort}, ${this.state.woh_neu_plz}`
+        });
+
+        this.props.addFormField({
+            key: "adresseWeitere",
+            value: this.state.woh_wei_addr
+        });
+
+        this.props.addFormField({
+            key: "plzWeitere",
+            value: `${this.state.woh_wei_ort}, ${this.state.woh_wei_plz}`
+        });
+    }
+
+    private finishJob(){
+        this.props.navigation.navigate("Home");
     }
 
     public render() {
@@ -110,31 +147,27 @@ class FormScreen extends React.Component<Props, State> {
                                   disabled={false}
                               />
                       </FormElement>
-                      <FormElement text={"Die neue Wohnung ist im Bereich des Bundesgebietes die..."}>
-                          <Picker
-                              note
-                              mode="dropdown"
-                              selectedValue={wohnung}
-                              onValueChange={this.onPick.bind(this)}
-                          >
-                              <Picker.Item label="Bitte Auswählen" value="key0" />
-                              <Picker.Item label="Alleinige Wohnung" value="key1" />
-                              <Picker.Item label="Hauptwohnung" value="key2" />
-                              <Picker.Item label="Nebenwohnung" value="key3" />
-                          </Picker>
-                      </FormElement>
 
                       <ListItem itemDivider={true}>
                           <Text>Angaben zur neuen Wohnung</Text>
                       </ListItem>
                       <FormElement text={"Adresse"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_neu_addr}
+                              onChangeText={this.setTextField.bind(this, "woh_neu_addr")}
+                          />
                       </FormElement>
                       <FormElement text={"PLZ"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_neu_plz}
+                              onChangeText={this.setTextField.bind(this, "woh_neu_plz")}
+                          />
                       </FormElement>
                       <FormElement text={"Ort"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_neu_ort}
+                              onChangeText={this.setTextField.bind(this, "woh_neu_ort")}
+                          />
                       </FormElement>
                       <ListItem itemDivider={true}>
                           <Text>Die neue Wohnung ist im Bereich des Bundesgebietes die...</Text>
@@ -143,7 +176,7 @@ class FormScreen extends React.Component<Props, State> {
                           <Picker
                               note
                               mode="dropdown"
-                              selectedValue={this.state.wohnung}
+                              selectedValue={wohnung}
                               onValueChange={this.onPick.bind(this)}
                           >
                               <Picker.Item label="Bitte Auswählen" value="key0" />
@@ -156,14 +189,29 @@ class FormScreen extends React.Component<Props, State> {
                           <Text>Angaben zur weiteren Wohnung</Text>
                       </ListItem>
                       <FormElement text={"Adresse"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_wei_addr}
+                              onChangeText={this.setTextField.bind(this, "woh_wei_addr")}
+                          />
                       </FormElement>
                       <FormElement text={"PLZ"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_wei_plz}
+                              onChangeText={this.setTextField.bind(this, "woh_wei_plz")}
+                          />
                       </FormElement>
                       <FormElement text={"Ort"}>
-                          <Input/>
+                          <Input
+                              value={this.state.woh_wei_ort}
+                              onChangeText={this.setTextField.bind(this, "woh_wei_ort")}
+                          />
                       </FormElement>
+                      <FormElement text={"Abschließen"}>
+                          <Button primary={true} onPress={this.finishJob.bind(this)}>
+                              <Text>Abschließen</Text>
+                          </Button>
+                      </FormElement>
+
                   </Content>
           </Container>
         );
@@ -176,6 +224,7 @@ const  mapStateToProps = (state: IGlobalState) => {
         formData: state.procedure.formField,
     }
 };
+
 
 export default connect(
     mapStateToProps,
