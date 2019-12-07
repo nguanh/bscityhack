@@ -19,15 +19,15 @@ interface Props {
     items: string[];
 }
 
-class CheckScreen extends React.Component<Props> {
+class FormScreen extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
     }
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: 'Dokumente',
-            tabBarIcon: <MaterialCommunityIcons name={"format-list-checks"} size={30}/>
+            title: 'Formulare',
+            tabBarIcon: <MaterialCommunityIcons name={"format-columns"} size={30}/>
         }
     };
 
@@ -79,4 +79,4 @@ const  mapStateToProps = (state: IGlobalState) => {
 export default connect(
     mapStateToProps,
     { changeLanguage, selectChecklistItem }
-)(CheckScreen);
+)(FormScreen);

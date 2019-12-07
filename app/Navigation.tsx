@@ -7,12 +7,14 @@ import QRGeneratorScreen from './src/screens/QRGeneratorScreen';
 import ProcedureScreen from './src/screens/ProcedureScreen';
 import InformationScreen from './src/screens/InformationScreen';
 import CheckScreen from './src/screens/CheckScreen';
+import FormScreen from './src/screens/FormScreen';
 
 const TabBarComponent = props => <BottomTabBar {...props} />;
 
 const MainNavigator = createBottomTabNavigator({
     Information: InformationScreen,
     Checklist: CheckScreen,
+    Forms: FormScreen,
 },  {
     tabBarComponent: props => (
         <TabBarComponent {...props} style={{ borderTopColor: '#605F60' }} />
