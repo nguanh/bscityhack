@@ -30,7 +30,7 @@ export default function(state: IProcedureState = initialState, action: IAction):
         case PROCEDURE_ACTION_TYPES.CHOOSE_LANGUAGE:
             return {
                 ...state,
-                language: state.language,
+                language: action.payload,
             };
         case PROCEDURE_ACTION_TYPES.CHOOSE_PROCEDURE:
             return {

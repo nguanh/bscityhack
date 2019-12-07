@@ -3,13 +3,13 @@ import itemReducer, {ItemState} from './itemReducer';
 import errorReducer, {IErrorState} from './errorReducer';
 import procedureReducer, {IProcedureState} from './procedureReducer';
 
-interface IState {
+export interface IGlobalState {
     item: ItemState,
     error: IErrorState,
     procedure: IProcedureState,
 }
 
-export default combineReducers<IState>({
+export default combineReducers<IGlobalState>({
     item: itemReducer,
     error: errorReducer,
     procedure: procedureReducer,
