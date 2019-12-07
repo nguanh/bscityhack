@@ -1,27 +1,32 @@
 import React from 'react';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import {Body, Container, H3, Button, Text, Icon, CheckBox, ListItem, Content} from 'native-base';
+import {Container, Input, Content, DatePicker, Picker, ListItem, Text} from 'native-base';
 import {connect} from 'react-redux';
-import {changeLanguage, selectChecklistItem} from '../store/actions/procedureActions';
+import {changeLanguage, addFormField} from '../store/actions/procedureActions';
 import {LANGUAGE} from '../store/reducers/procedureReducer';
 import {IGlobalState} from '../store/reducers';
 import {getLangText, TEXT_FRAGMENTS} from '../utils/languageChoose';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import {getForm} from '../utils/forms';
+import FormElement from '../component/FormElement';
+import moment from 'moment';
 
-// TODO language
-// TODO allow checking in state
 
 interface Props {
     language: LANGUAGE;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-    selectChecklistItem: (item: string) => void;
-    items: string[];
+    addFormField: (item: {key: string, value: string}) => void;
 }
 
-class FormScreen extends React.Component<Props> {
+interface State {
+    wohnung: string;
+}
+
+class FormScreen extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+        this.state= {
+            wohnung: "0",
+        }
     }
 
     static navigationOptions = ({navigation}) => {
@@ -31,38 +36,117 @@ class FormScreen extends React.Component<Props> {
         }
     };
 
+    private setDate(newDate) {
+        const mom = moment(newDate).format("DD MM YY");
 
-    private selectItem(item: string){
-        this.props.selectChecklistItem(item);
-    }
-
-    private isSelected(item: string) {
-        return this.props.items.includes(item);
-    }
-
-    private renderCheckList() {
-        const checklist: string[] = getForm("checklist");
-        return checklist.map((item) =>{
-            return(
-                <ListItem key={item}>
-                    <CheckBox
-                        checked={this.isSelected(item)}
-                        onPress={this.selectItem.bind(this, item)}
-                    />
-                    <Body>
-                        <Text>{item}</Text>
-                    </Body>
-                </ListItem>
-            );
+        this.props.addFormField({
+            key: "einzugstag",
+            value: mom
         });
+    }
+
+
+
+    private onPick(data) {
+       let key1 = "Off";
+       let key2 = "Off";
+       let key3 = "Off";
+       if(data == "key1") key1 = "Yes";
+       if(data == "key2") key2 = "Yes";
+       if(data == "key3") key3 = "Yes";
+
+        this.props.addFormField({
+            key: "wohnung_allein",
+            value: key1
+        });
+
+        this.props.addFormField({
+            key: "wohnung_haupt",
+            value: key2
+        });
+        this.props.addFormField({
+            key: "wohnung_neben",
+            value: key3
+        });
+    }
+
+    private setTextField() {
+
     }
 
     public render() {
         return (
           <Container>
-                  <H3>Bitte folgende Dokumente zum Termin mitbringen</H3>
                   <Content>
-                  {this.renderCheckList()}
+                      <FormElement text={"Tag des Einzugs"}>
+                              <DatePicker
+                                  defaultDate={new Date()}
+                                  locale={"de"}
+                                  timeZoneOffsetInMinutes={undefined}
+                                  modalTransparent={false}
+                                  animationType={"fade"}
+                                  androidMode={"default"}
+                                  placeHolderText="Bitte auswählen"
+                                  textStyle={{ color: "green" }}
+                                  placeHolderTextStyle={{ color: "#d3d3d3" }}
+                                  onDateChange={this.setDate.bind(this)}
+                                  disabled={false}
+                              />
+                      </FormElement>
+                      <FormElement text={"Die neue Wohnung ist im Bereich des Bundesgebietes die..."}>
+                          <Picker
+                              note
+                              mode="dropdown"
+                              selectedValue={this.state.wohnung}
+                              onValueChange={this.onPick.bind(this)}
+                          >
+                              <Picker.Item label="Bitte Auswählen" value="key0" />
+                              <Picker.Item label="Alleinige Wohnung" value="key1" />
+                              <Picker.Item label="Hauptwohnung" value="key2" />
+                              <Picker.Item label="Nebenwohnung" value="key3" />
+                          </Picker>
+                      </FormElement>
+
+                      <ListItem itemDivider={true}>
+                          <Text>Angaben zur neuen Wohnung</Text>
+                      </ListItem>
+                      <FormElement text={"Adresse"}>
+                          <Input/>
+                      </FormElement>
+                      <FormElement text={"PLZ"}>
+                          <Input/>
+                      </FormElement>
+                      <FormElement text={"Ort"}>
+                          <Input/>
+                      </FormElement>
+                      <ListItem itemDivider={true}>
+                          <Text>Die neue Wohnung ist im Bereich des Bundesgebietes die...</Text>
+                      </ListItem>
+                      <ListItem>
+                          <Picker
+                              note
+                              mode="dropdown"
+                              selectedValue={this.state.wohnung}
+                              onValueChange={this.onPick.bind(this)}
+                          >
+                              <Picker.Item label="Bitte Auswählen" value="key0" />
+                              <Picker.Item label="Alleinige Wohnung" value="key1" />
+                              <Picker.Item label="Hauptwohnung" value="key2" />
+                              <Picker.Item label="Nebenwohnung" value="key3" />
+                          </Picker>
+                      </ListItem>
+                      <ListItem itemDivider={true}>
+                          <Text>Angaben zur weiteren Wohnung</Text>
+                      </ListItem>
+                      <FormElement text={"Adresse"}>
+                          <Input/>
+                      </FormElement>
+                      <FormElement text={"PLZ"}>
+                          <Input/>
+                      </FormElement>
+                      <FormElement text={"Ort"}>
+                          <Input/>
+                      </FormElement>
                   </Content>
           </Container>
         );
@@ -78,5 +162,5 @@ const  mapStateToProps = (state: IGlobalState) => {
 
 export default connect(
     mapStateToProps,
-    { changeLanguage, selectChecklistItem }
+    { changeLanguage, addFormField }
 )(FormScreen);

@@ -15,12 +15,14 @@ export interface IProcedureState {
     language : LANGUAGE,
     procedure: PROCEDURE,
     checklistItems : string[],
+    formField: any,
 }
 
 const initialState: IProcedureState = {
     language: LANGUAGE.DE,
     procedure: PROCEDURE.UNKNOWN,
     checklistItems: [],
+    formField: {}
 
 };
 export interface IAction {
@@ -53,6 +55,17 @@ export default function(state: IProcedureState = initialState, action: IAction):
                  ...state,
                  checklistItems: updatedItems
              };
+        case PROCEDURE_ACTION_TYPES.ADD_FORM_FIELD:
+            const formField = Object.assign({}, state.formField);
+            const key = action.payload.key;
+            const value = action.payload.value;
+            formField[key] = value;
+
+            return {
+                ...state,
+                formField: formField,
+            }
+
 
         default:
             return state;

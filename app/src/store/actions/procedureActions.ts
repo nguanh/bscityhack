@@ -15,3 +15,11 @@ export const selectChecklistItem = (item: string) => (dispatch) => {
         payload: item,
     })
 };
+
+
+export const addFormField = (item: {key: string, value: string}) => (dispatch) => {
+    dispatch({
+        type: PROCEDURE_ACTION_TYPES.ADD_FORM_FIELD,
+        payload: item,
+    })
+};
