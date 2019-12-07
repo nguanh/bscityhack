@@ -17,14 +17,6 @@ interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
-const mockData = {
-    fact: "Danyel liebt Softwareergonomie",
-    frequency: 5,
-    subObject: {
-        x: [1,2,3],
-    }
-}
-
 class HomeScreen extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
