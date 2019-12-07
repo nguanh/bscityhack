@@ -14,11 +14,14 @@ export enum PROCEDURE {
 export interface IProcedureState {
     language : LANGUAGE,
     procedure: PROCEDURE,
+    checklistItems : string[],
 }
 
 const initialState: IProcedureState = {
     language: LANGUAGE.DE,
     procedure: PROCEDURE.UNKNOWN,
+    checklistItems: [],
+
 };
 export interface IAction {
     type: PROCEDURE_ACTION_TYPES,
@@ -37,6 +40,20 @@ export default function(state: IProcedureState = initialState, action: IAction):
                 ...state,
                 procedure: state.procedure,
             };
+        case PROCEDURE_ACTION_TYPES.SELECT_CHECKLIST_ITEM:
+             const items = state.checklistItems;
+             const newItem: string = action.payload;
+             let updatedItems: string[];
+             if (items.includes(newItem)) {
+                 updatedItems = items.filter(item => item != newItem);
+             } else {
+                 updatedItems = [...items, newItem];
+             }
+             return {
+                 ...state,
+                 checklistItems: updatedItems
+             };
+
         default:
             return state;
     }

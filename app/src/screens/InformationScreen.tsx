@@ -7,6 +7,7 @@ import {LANGUAGE} from '../store/reducers/procedureReducer';
 import {IGlobalState} from '../store/reducers';
 import {getLangText, TEXT_FRAGMENTS} from '../utils/languageChoose';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
+import {getForm} from '../utils/forms';
 
 // TODO Searchable dropdown
 
@@ -31,7 +32,7 @@ class InformationScreen extends React.Component<Props> {
         return (
           <Container>
               <Body>
-                  <H1>{getLangText(TEXT_FRAGMENTS.PICK_PROCEDURE, this.props.language)}</H1>
+                  <Text>{getForm("information")}</Text>
               </Body>
           </Container>
         );

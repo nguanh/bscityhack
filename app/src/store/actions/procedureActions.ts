@@ -7,3 +7,11 @@ export const changeLanguage = (language: LANGUAGE) => (dispatch) => {
         payload: language,
     })
 };
+
+
+export const selectChecklistItem = (item: string) => (dispatch) => {
+    dispatch({
+        type: PROCEDURE_ACTION_TYPES.SELECT_CHECKLIST_ITEM,
+        payload: item,
+    })
+};
