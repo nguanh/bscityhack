@@ -40,6 +40,11 @@ export default class QRScreen extends React.Component<Props> {
     }
 
 
+    private serializeData(value: any) {
+        return JSON.stringify(value);
+    }
+
+
 
     public render() {
 
@@ -48,7 +53,7 @@ export default class QRScreen extends React.Component<Props> {
               <Body>
                   <Text>Wird geladen...</Text>
                   <QRCode
-                      value={"https://www.google.de"}
+                      value={this.serializeData(mockData)}
                       size={200}
                       bgColor='purple'
                       fgColor='white'/>
