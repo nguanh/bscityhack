@@ -1,8 +1,7 @@
 import React from 'react';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import {Body, Button, Container, Footer, Icon, Text, Title,
+import {Body, Button, Container, Text,
     Header,
-    H1,
 
 } from 'native-base';
 import {connect} from 'react-redux';
@@ -20,18 +19,6 @@ class HomeScreen extends React.Component<Props> {
         super(props);
 
     }
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: 'Bitte Sprache auswählen',
-            headerRight: () => (
-                <Button transparent={true} onPress={
-                    () => navigation.navigate("Details")
-                }>
-                    <Icon name={"menu"}/>
-                </Button>
-            )
-        }
-    };
 
     private onClick() {
         this.props.navigation.navigate("QR");
@@ -64,9 +51,6 @@ class HomeScreen extends React.Component<Props> {
                       <Text> Englisch</Text>
                   </Button>
               </Body>
-              <Footer>
-
-              </Footer>
           </Container>
         );
     }
