@@ -15,6 +15,7 @@ interface Props {
     language: LANGUAGE;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
     addFormField: (item: {key: string, value: string}) => void;
+    formData: any;
 }
 
 interface State {
@@ -75,12 +76,28 @@ class FormScreen extends React.Component<Props, State> {
     }
 
     public render() {
+        const formData = this.props.formData;
+        const einzugstag = formData.einzugstag || "08 12 19";
+        const parsedData = moment(einzugstag, "DD MM YY");
+
+        let wohnung = "key0";
+        if (formData.wohnung_allein == "Yes") {
+            wohnung = "key1"
+        }
+        if (formData.wohnung_haupt == "Yes") {
+            wohnung = "key2"
+        }
+        if (formData.wohnung_neben == "Yes") {
+            wohnung = "key3"
+        }
+
+
         return (
           <Container>
                   <Content>
                       <FormElement text={"Tag des Einzugs"}>
                               <DatePicker
-                                  defaultDate={new Date()}
+                                  defaultDate={parsedData.toDate()}
                                   locale={"de"}
                                   timeZoneOffsetInMinutes={undefined}
                                   modalTransparent={false}
@@ -97,7 +114,7 @@ class FormScreen extends React.Component<Props, State> {
                           <Picker
                               note
                               mode="dropdown"
-                              selectedValue={this.state.wohnung}
+                              selectedValue={wohnung}
                               onValueChange={this.onPick.bind(this)}
                           >
                               <Picker.Item label="Bitte Auswählen" value="key0" />
@@ -156,7 +173,7 @@ class FormScreen extends React.Component<Props, State> {
 const  mapStateToProps = (state: IGlobalState) => {
     return {
         language: state.procedure.language,
-        items: state.procedure.checklistItems,
+        formData: state.procedure.formField,
     }
 };
 
