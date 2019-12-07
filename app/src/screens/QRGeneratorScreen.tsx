@@ -6,23 +6,11 @@ import {
 import QRCode from 'react-native-qrcode';
 import {IGlobalState} from '../store/reducers';
 import {connect} from 'react-redux';
-import {addFormField, changeLanguage} from '../store/actions/procedureActions';
 import axios from 'axios';
-import {getServerUrl} from '../utils/urlResolver';
-import {ADD_ITEM} from '../store/actions/types';
-import {returnErrors} from '../store/actions/errorActions';
 import {ToastAndroid} from 'react-native';
 
 interface Props {
     formData: any
-}
-
-const mockData = {
-    fact: "Danyel liebt Softwareergonomie",
-    frequency: 5,
-    subObject: {
-        x: [1,2,3],
-    }
 }
 
 class QRGeneratorScreen extends React.Component<Props> {
@@ -45,18 +33,7 @@ class QRGeneratorScreen extends React.Component<Props> {
         return JSON.stringify(value);
     }
 
-    private sendData() {
-        console.log(this.props.formData);
-        const url = "http://36fb50b6.ngrok.io/api/v1.0/formdata/qr/yuckfou";
-        axios
-            .post(url, this.props.formData)
-            .then(res =>
-                ToastAndroid.show("erfolgreich gesendet", ToastAndroid.SHORT)
-            )
-            .catch(err =>
-                console.log("fehler ", err)
-            );
-    }
+
 
 
     public render() {

@@ -37,6 +37,10 @@ class HomeScreen extends React.Component<Props> {
     }
 
 
+    private goToReader() {
+        this.props.navigation.navigate("Reader");
+    }
+
     public render() {
 
         return (
@@ -60,6 +64,10 @@ class HomeScreen extends React.Component<Props> {
                       style={styles.button}
                   >
                       <Text> Englisch</Text>
+                  </Button>
+
+                  <Button onPress={this.goToReader.bind(this)}>
+                      <Text> QR Lesen</Text>
                   </Button>
               </Body>
           </Container>

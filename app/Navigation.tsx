@@ -8,6 +8,7 @@ import ProcedureScreen from './src/screens/ProcedureScreen';
 import InformationScreen from './src/screens/InformationScreen';
 import CheckScreen from './src/screens/CheckScreen';
 import FormScreen from './src/screens/FormScreen';
+import QRReaderScreen from './src/screens/QRReaderScreen';
 
 const TabBarComponent = props => <BottomTabBar {...props} />;
 
@@ -27,6 +28,7 @@ export const AppNavigator = createStackNavigator({
     QR: QRGeneratorScreen,
     PROCEDURE: ProcedureScreen,
     Main: MainNavigator,
+    Reader: QRReaderScreen,
 }, {
     initialRouteName: 'Home',
     defaultNavigationOptions: {
