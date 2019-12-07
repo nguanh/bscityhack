@@ -1,7 +1,7 @@
 #python 2.7.10
 #pip install flask
 
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from dbcon import DBcon
 
 # Init
@@ -19,7 +19,6 @@ def get_tests():
     data = db.getTests()
     if data is not None:
         return data, 200
-        #return jsonify(data), 200
     else:
         return jsonify({'error': 'no content'}), 404
 
@@ -30,7 +29,17 @@ def get_test(id):
     if data is not None:
         return data, 200
     else:
-        return jsonify({'error': 'no content'}), 404
+        return jsonify({'error': 'no content'}), 500
+
+
+@app.route('/api/v1.0/test', methods=['POST'])
+def new_vehicle():
+    data = request.data
+    response = db.newTest(data)
+    if response is not None:
+        return jsonify({'id': response}), 201
+    else:
+        return jsonify({'error': 'could not create'}), 500
 
 
 if __name__ == '__main__':
