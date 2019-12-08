@@ -93,7 +93,7 @@ class AppointmentScreen extends React.Component<Props> {
                             const clickedButton = buttons[buttonIndex];
                             if( clickedButton != "Abbrechen") {
                                 this.props.setAppointment(clickedButton);
-                                this.props.navigation.navigate("PROCEDURE");
+                                this.props.navigation.navigate("Home");
                             }
                         }
                     )

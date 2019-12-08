@@ -108,10 +108,6 @@ class FormScreen extends React.Component<Props, State> {
         });
     }
 
-    private finishJob(){
-        this.props.navigation.navigate("Home");
-    }
-
     public render() {
         const formData = this.props.formData;
         const einzugstag = formData.einzugstag || "08 12 19";
@@ -206,12 +202,6 @@ class FormScreen extends React.Component<Props, State> {
                               onChangeText={this.setTextField.bind(this, "woh_wei_ort")}
                           />
                       </FormElement>
-                      <FormElement text={"Abschließen"}>
-                          <Button primary={true} onPress={this.finishJob.bind(this)}>
-                              <Text>Abschließen</Text>
-                          </Button>
-                      </FormElement>
-
                   </Content>
           </Container>
         );

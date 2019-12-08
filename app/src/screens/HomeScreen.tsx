@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import {Body, Button, Container, Text,
-    Header,
+import {Body, Button, Container, Text, Header, H3,
 } from 'native-base';
 import {connect} from 'react-redux';
 import {changeLanguage} from '../store/actions/procedureActions';
@@ -49,11 +48,12 @@ class HomeScreen extends React.Component<Props> {
                   {!_.isEmpty(this.props.formData) &&
                   <Header>
                       <Button onPress={this.onClick.bind(this)}>
-                          <Text> QR Code generieren</Text>
+                          <Text> Daten übermitteln</Text>
                       </Button>
                   </Header>
                   }
               <Body>
+                  <H3> Willkommen bei Zerocracy </H3>
                   <Button
                       onPress={this.onChangeLanguage.bind(this, LANGUAGE.DE)}
                       style={styles.button}
@@ -69,7 +69,11 @@ class HomeScreen extends React.Component<Props> {
                       <Text> Englisch</Text>
                   </Button>
 
-                  <Button onPress={this.goToReader.bind(this)}>
+                  <Button
+                      onPress={this.goToReader.bind(this)}
+                      style={styles.button}
+                      full={true}
+                  >
                       <Text> QR Lesen</Text>
                   </Button>
               </Body>
@@ -93,6 +97,5 @@ export default connect(
 const styles = StyleSheet.create({
     button: {
         marginTop: 24,
-        backgroundColor : "#a30000"
     }
 });
