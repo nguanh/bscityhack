@@ -94,7 +94,7 @@ class FormScreen extends React.Component<Props, State> {
 
         this.props.addFormField({
             key: "plzNeu",
-            value: `${this.state.woh_neu_ort}, ${this.state.woh_neu_plz}`
+            value: `${this.state.woh_neu_ort} ${this.state.woh_neu_plz}`
         });
 
         this.props.addFormField({
@@ -104,7 +104,7 @@ class FormScreen extends React.Component<Props, State> {
 
         this.props.addFormField({
             key: "plzWeitere",
-            value: `${this.state.woh_wei_ort}, ${this.state.woh_wei_plz}`
+            value: `${this.state.woh_wei_ort} ${this.state.woh_wei_plz}`
         });
     }
 

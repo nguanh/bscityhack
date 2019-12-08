@@ -50,10 +50,11 @@ export default class QRReaderScreen extends React.Component<Props, State> {
             scanned: true,
         });
         try {
-            console.log(data);
-            const url = "http://fb4402cf.ngrok.io/api/v1.0/formdata/qr/yuckfou";
+            const url = "http://57600eb0.ngrok.io/api/v1.0/formdata/qr/yuckfou";
+            const parsed = JSON.parse(data);
+            console.log("reader", parsed);
             axios
-                .post(url, data)
+                .post(url, parsed)
                 .then(() =>
                     ToastAndroid.show("erfolgreich gesendet", ToastAndroid.SHORT)
                 )

@@ -15,6 +15,7 @@ interface Props {
     changeLanguage: (language: LANGUAGE) => void;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
     formData: any;
+    appointment: string;
 }
 
 class HomeScreen extends React.Component<Props> {
@@ -56,12 +57,14 @@ class HomeScreen extends React.Component<Props> {
                   <Button
                       onPress={this.onChangeLanguage.bind(this, LANGUAGE.DE)}
                       style={styles.button}
+                      full={true}
                   >
                       <Text> Deutsch</Text>
                   </Button>
                   <Button
                       onPress={this.onChangeLanguage.bind(this, LANGUAGE.EN)}
                       style={styles.button}
+                      full={true}
                   >
                       <Text> Englisch</Text>
                   </Button>
@@ -78,6 +81,7 @@ class HomeScreen extends React.Component<Props> {
 const  mapStateToProps = (state: IGlobalState) => {
     return {
         formData: state.procedure.formField,
+        appointment: state.procedure.appointment,
     }
 };
 
@@ -89,5 +93,6 @@ export default connect(
 const styles = StyleSheet.create({
     button: {
         marginTop: 24,
+        backgroundColor : "#a30000"
     }
 });
