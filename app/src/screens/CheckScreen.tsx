@@ -10,7 +10,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import {getForm} from '../utils/forms';
 
 // TODO language
-// TODO allow checking in state
 
 interface Props {
     language: LANGUAGE;

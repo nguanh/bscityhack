@@ -9,6 +9,7 @@ import InformationScreen from './src/screens/InformationScreen';
 import CheckScreen from './src/screens/CheckScreen';
 import FormScreen from './src/screens/FormScreen';
 import QRReaderScreen from './src/screens/QRReaderScreen';
+import AppointmentScreen from './src/screens/AppointmentScreen';
 
 const TabBarComponent = props => <BottomTabBar {...props} />;
 
@@ -16,6 +17,7 @@ const MainNavigator = createBottomTabNavigator({
     Information: InformationScreen,
     Checklist: CheckScreen,
     Forms: FormScreen,
+    Appointment: AppointmentScreen,
 },  {
     tabBarComponent: props => (
         <TabBarComponent {...props} style={{ borderTopColor: '#605F60' }} />

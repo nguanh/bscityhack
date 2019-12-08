@@ -6,8 +6,6 @@ import {
 import QRCode from 'react-native-qrcode';
 import {IGlobalState} from '../store/reducers';
 import {connect} from 'react-redux';
-import axios from 'axios';
-import {ToastAndroid} from 'react-native';
 
 interface Props {
     formData: any
@@ -24,13 +22,10 @@ class QRGeneratorScreen extends React.Component<Props> {
         }
     };
 
-    public componentDidMount(): void {
-        this.sendData();
-    }
-
-
     private serializeData(value: any) {
-        return JSON.stringify(value);
+        const stringified = JSON.stringify(value);
+        console.log(stringified);
+        return stringified
     }
 
 
@@ -40,10 +35,11 @@ class QRGeneratorScreen extends React.Component<Props> {
 
         return (
           <Container>
-              <Body>
+              <Body style={{marginTop: 24}}>
                   <QRCode
+
                       value={this.serializeData(this.props.formData)}
-                      size={200}
+                      size={350}
                       bgColor='purple'
                       fgColor='white'/>
               </Body>
