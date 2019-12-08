@@ -16,13 +16,15 @@ export interface IProcedureState {
     procedure: PROCEDURE,
     checklistItems : string[],
     formField: any,
+    appointment: string,
 }
 
 const initialState: IProcedureState = {
     language: LANGUAGE.DE,
     procedure: PROCEDURE.UNKNOWN,
     checklistItems: [],
-    formField: {}
+    formField: {},
+    appointment: "",
 
 };
 export interface IAction {
@@ -66,7 +68,11 @@ export default function(state: IProcedureState = initialState, action: IAction):
                 formField: formField,
             }
 
-
+        case PROCEDURE_ACTION_TYPES.SET_APPOINTMENT:
+            return {
+                ...state,
+                appointment : action.payload,
+            }
         default:
             return state;
     }

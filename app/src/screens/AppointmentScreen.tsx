@@ -1,20 +1,19 @@
 import React from 'react';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import {Body, Container, H3, Button, Text, Icon, CheckBox, ListItem, Content} from 'native-base';
+import { H3, ActionSheet, Root} from 'native-base';
 import {connect} from 'react-redux';
-import {changeLanguage, selectChecklistItem} from '../store/actions/procedureActions';
+import {changeLanguage, setAppointment} from '../store/actions/procedureActions';
 import {LANGUAGE} from '../store/reducers/procedureReducer';
 import {IGlobalState} from '../store/reducers';
 import {getLangText, TEXT_FRAGMENTS} from '../utils/languageChoose';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import {getForm} from '../utils/forms';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 interface Props {
     language: LANGUAGE;
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-    selectChecklistItem: (item: string) => void;
+    setAppointment: (item: string) => void;
     items: string[];
 }
 
@@ -22,6 +21,37 @@ const startLocation = {
     latitude: 52.2590183,
     longitude: 10.5116021,
 };
+
+const behoerden = [
+    {
+        location:
+            {
+                latitude: 52.2634889,
+                longitude: 10.5221987,
+            },
+        name: "Stadtverwaltung Braunschweig Stadtelternrat",
+        dates: ["09.12.19 12:00", "09.12.19 14:00"],
+    },
+    {
+        location:
+            {
+                latitude: 52.2613121,
+                longitude: 10.5172205,
+            },
+        name: "Stadt Braunschweig, Fachbereich Kinder, Jugend und Familie",
+        dates: ["09.12.19 10:00", "09.12.19 15:00"],
+    },
+    {
+        location:
+            {
+                latitude: 52.2592994,
+                longitude: 10.5273914,
+            },
+        name: "Stadt Braunschweig, Fachbereich Stadtgrün und Sport",
+        dates: ["09.12.19 8:00", "09.12.19 9:00"],
+    },
+];
+
 const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
 
 class AppointmentScreen extends React.Component<Props> {
@@ -44,10 +74,39 @@ class AppointmentScreen extends React.Component<Props> {
         });
     }
 
+    private renderMarkers() {
+        return behoerden.map((beh) => {
+            const buttons = [...beh.dates, "Abbrechen"];
+            const cancelIndex = buttons.length -2;
+            return <Marker
+                key={beh.name}
+                coordinate={beh.location}
+                pinColor={"blue"}
+                onPress={() => {
+                    ActionSheet.show(
+                        {
+                            options: buttons,
+                            cancelButtonIndex: cancelIndex,
+                            title: beh.name,
+                        },
+                        buttonIndex => {
+                            const clickedButton = buttons[buttonIndex];
+                            if( clickedButton != "Abbrechen") {
+                                this.props.setAppointment(clickedButton);
+                                this.props.navigation.navigate("PROCEDURE");
+                            }
+                        }
+                    )
+                }
+                }
+            />
+        });
+    }
+
 
     public render() {
         return (
-          <Container>
+          <Root>
               <H3>Bitte folgende Dokumente zum Termin mitbringen</H3>
               <View style={styles.container}>
                   <MapView
@@ -56,12 +115,14 @@ class AppointmentScreen extends React.Component<Props> {
                       }}
                       style={styles.mapStyle}
                       onMapReady={this.fitMap.bind(this)}
+                      maxZoomLevel={15}
 
                   >
                   <Marker coordinate={startLocation} />
+                  {this.renderMarkers()}
                   </MapView>
               </View>
-          </Container>
+          </Root>
         );
     }
 }
@@ -75,7 +136,7 @@ const  mapStateToProps = (state: IGlobalState) => {
 
 export default connect(
     mapStateToProps,
-    { changeLanguage, selectChecklistItem }
+    { changeLanguage, setAppointment }
 )(AppointmentScreen);
 
 const styles = StyleSheet.create({

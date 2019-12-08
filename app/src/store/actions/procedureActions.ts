@@ -1,8 +1,6 @@
-import {ADD_ITEM, PROCEDURE_ACTION_TYPES} from './types';
+import { PROCEDURE_ACTION_TYPES} from './types';
 import {LANGUAGE} from '../reducers/procedureReducer';
-import axios from 'axios';
-import {getServerUrl} from '../../utils/urlResolver';
-import {returnErrors} from './errorActions';
+
 
 export const changeLanguage = (language: LANGUAGE) => (dispatch) => {
     dispatch({
@@ -24,6 +22,14 @@ export const addFormField = (item: {key: string, value: string}) => (dispatch) =
     dispatch({
         type: PROCEDURE_ACTION_TYPES.ADD_FORM_FIELD,
         payload: item,
+    })
+};
+
+
+export const setAppointment = (appointment:string) => (dispatch) => {
+    dispatch({
+        type: PROCEDURE_ACTION_TYPES.SET_APPOINTMENT,
+        payload: appointment,
     })
 };
 
