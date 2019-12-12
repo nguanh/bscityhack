@@ -53,7 +53,7 @@ class HomeScreen extends React.Component<Props> {
                   </Header>
                   }
               <Body>
-                  <H3> Willkommen bei Zerocracy </H3>
+                  <H3 style={styles.header}> Willkommen bei Zerocracy </H3>
                   <Button
                       onPress={this.onChangeLanguage.bind(this, LANGUAGE.DE)}
                       style={styles.button}
@@ -97,5 +97,9 @@ export default connect(
 const styles = StyleSheet.create({
     button: {
         marginTop: 24,
+    },
+
+    header: {
+        marginTop: 60,
     }
 });

@@ -40,7 +40,7 @@ class QRGeneratorScreen extends React.Component<Props> {
         axios
             .post(url, this.props.formData)
             .then(res =>
-                ToastAndroid.show("erfolgreich gesendet", ToastAndroid.SHORT)
+                {}
             )
             .catch(err =>
                 console.log("fehler ", err)
@@ -56,7 +56,6 @@ class QRGeneratorScreen extends React.Component<Props> {
           <Container>
               <Body style={{marginTop: 24}}>
                   <QRCode
-
                       value={this.serializeData(this.props.formData)}
                       size={350}
                       bgColor='purple'
